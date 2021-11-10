@@ -17,7 +17,7 @@ public class movementBird : MonoBehaviour
     //Don't forget to declare the isDead variable
     bool isDead;
     //Add a public GameObject variable and drag your Button in the Inspector
-    public GameObject ReplayButton;
+    public GameObject pnlGameOver;
 
     //Declare an int variable named score
     int score = 0;
@@ -30,7 +30,7 @@ public class movementBird : MonoBehaviour
         isDead = true;
         rb2d.velocity = Vector2.zero;
         //set the ReplayButton to active to show it in the scene
-        ReplayButton.SetActive(true);
+        pnlGameOver.SetActive(true);
 
         //change the isDead parameter of the Animator to start the Dead animation
         GetComponent<Animator>().SetBool("isDead",true);
