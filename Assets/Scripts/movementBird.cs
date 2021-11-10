@@ -24,7 +24,9 @@ public class movementBird : MonoBehaviour
     //Declare a public Text variable
     public Text scoreText;
     //Add an OncollisionEnter2d function to your BirdScript
-    private void OnCollisionEnter2D(Collision2D other) {
+    private void OnCollisionEnter2D(Collision2D col) {
+        if(col.gameObject.tag != "dontUp")
+        {
         isDead = true;
         rb2d.velocity = Vector2.zero;
         //set the ReplayButton to active to show it in the scene
@@ -32,6 +34,8 @@ public class movementBird : MonoBehaviour
 
         //change the isDead parameter of the Animator to start the Dead animation
         GetComponent<Animator>().SetBool("isDead",true);
+        }
+
     }
     private void OnTriggerEnter2D(Collider2D col) {
         if(col.gameObject.tag == "Score")
