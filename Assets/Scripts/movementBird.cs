@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class movementBird : MonoBehaviour
 {
@@ -13,16 +16,50 @@ public class movementBird : MonoBehaviour
 
     //Don't forget to declare the isDead variable
     bool isDead;
+    //Add a public GameObject variable and drag your Button in the Inspector
+    public GameObject ReplayButton;
 
+    //Declare an int variable named score
+    int score = 0;
+    //Declare a public Text variable
+    public Text scoreText;
     //Add an OncollisionEnter2d function to your BirdScript
-
     private void OnCollisionEnter2D(Collision2D other) {
         isDead = true;
         rb2d.velocity = Vector2.zero;
+        //set the ReplayButton to active to show it in the scene
+        ReplayButton.SetActive(true);
+
+        //change the isDead parameter of the Animator to start the Dead animation
+        GetComponent<Animator>().SetBool("isDead",true);
+    }
+    private void OnTriggerEnter2D(Collider2D col) {
+        if(col.gameObject.tag == "Score")
+         {
+             //Increment score
+             score++;
+             //Show the score in the console
+             Debug.Log(score);
+             //update Text
+             scoreText.text = score.ToString();
+         }
+    }
+
+    public void UnFreeze(){
+        Time.timeScale = 1;
+        scoreText.text = "0";
+
+    }
+
+    public void Replay()
+    {
+        //This line changes the scene to the Scene 0 in your build settings
+        SceneManager.LoadScene(0);
     }
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 0;
         //Get a reference to the Rigidbody2D of the Bird
         rb2d = GetComponent<Rigidbody2D>();
         //Go right
