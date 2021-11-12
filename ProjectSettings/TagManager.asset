@@ -7,6 +7,8 @@ TagManager:
   - Obstacle
   - Score
   - dontUp
+  - obs
+  - ennemyReady
   layers:
   - Default
   - TransparentFX
@@ -49,4 +51,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: EnemyBird
+    uniqueID: 1994908475
     locked: 0

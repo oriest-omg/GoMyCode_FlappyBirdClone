@@ -23,6 +23,8 @@ public class movementBird : MonoBehaviour
     int score = 0;
     //Declare a public Text variable
     public Text scoreText;
+
+    bool freez;
     //Add an OncollisionEnter2d function to your BirdScript
     private void OnCollisionEnter2D(Collision2D col) {
         if(col.gameObject.tag != "dontUp")
@@ -34,6 +36,7 @@ public class movementBird : MonoBehaviour
 
         //change the isDead parameter of the Animator to start the Dead animation
         GetComponent<Animator>().SetBool("isDead",true);
+             StartCoroutine(deathCoroutine());
         }
 
     }
@@ -48,10 +51,26 @@ public class movementBird : MonoBehaviour
              scoreText.text = score.ToString();
          }
     }
+    
+    IEnumerator deathCoroutine()
+    {
+        yield return new WaitForSeconds(1);
+       Freeze();
+    }
+
+    IEnumerator SpeedGame()
+    {
+        yield return new WaitForSeconds(10);
+       speed +=1;
+    }
 
     public void UnFreeze(){
         Time.timeScale = 1;
         scoreText.text = "0";
+
+    }
+        public void Freeze(){
+        Time.timeScale = 0;
 
     }
 
@@ -79,7 +98,18 @@ public class movementBird : MonoBehaviour
             //Reset Velocity
             rb2d.velocity = Vector2.right * speed * Time.deltaTime;
             //Add up force to bird
-            rb2d.AddForce(Vector2.up * flapforce);        }
+            rb2d.AddForce(Vector2.up * flapforce);        
+        }
+        if(Input.GetKeyDown(KeyCode.Space) && freez == false)
+        {
+            freez =true;
+            Freeze();
+        }else if(Input.GetKeyDown(KeyCode.Space) && freez == true)
+        {
+            freez = false;
+            UnFreeze();
+        }
+           StartCoroutine(SpeedGame());
         
     }
 }

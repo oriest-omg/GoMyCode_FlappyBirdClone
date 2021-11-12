@@ -19,13 +19,13 @@ public class MoveEnemyBird : MonoBehaviour
         
     }
     private void OnCollisionEnter2D(Collision2D col) {
-        if(col.gameObject.tag == "obs")
+        if(col.gameObject.tag == "obs" || col.gameObject.tag == "Obstacle")
         {
            GetComponent<BoxCollider2D>().isTrigger = true;
         }
     }
-    private void OnCollisionExit2D(Collision2D col) {
-        if(col.gameObject.tag == "obs")
+    private void OnTriggerExit2D(Collider2D col) {
+        if(col.gameObject.tag == "obs" || col.gameObject.tag == "Obstacle")
         {
            GetComponent<BoxCollider2D>().isTrigger = false;
         }
