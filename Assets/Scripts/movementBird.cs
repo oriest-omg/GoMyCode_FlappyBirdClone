@@ -61,7 +61,7 @@ public class movementBird : MonoBehaviour
     IEnumerator SpeedGame()
     {
         yield return new WaitForSeconds(10);
-       speed +=1;
+       speed +=0.1f;
     }
 
     public void UnFreeze(){

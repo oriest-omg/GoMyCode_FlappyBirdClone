@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MoveBackground : MonoBehaviour
 {
-    public GameObject otherBackground;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +17,7 @@ public class MoveBackground : MonoBehaviour
     private void OnTriggerExit2D(Collider2D col) {
         if(col.gameObject.tag=="Player")
         {
-            transform.position+= 2*Vector3.right * otherBackground.GetComponent<SpriteRenderer>().bounds.size.x;
+            transform.position+= 2*Vector3.right * GetComponent<SpriteRenderer>().bounds.size.x;
             //Multiply the old statement by 2
         }    
     }
