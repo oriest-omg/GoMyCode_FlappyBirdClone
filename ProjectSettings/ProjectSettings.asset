@@ -135,7 +135,9 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 1.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 8102269585328397411, guid: 163e377f0be23aa4290e6c6c752b8284, type: 2}
+  - {fileID: 11400000, guid: c57ecd420e8d09343b36f02d16fb7c26, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -152,7 +154,8 @@ PlayerSettings:
   resolutionScalingMode: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.DefaultCompany.UnityGoMyCodeFlappyBird
   buildNumber:
     Standalone: 0
     iPhone: 0

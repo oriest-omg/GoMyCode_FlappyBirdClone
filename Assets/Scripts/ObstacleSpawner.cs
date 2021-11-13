@@ -16,7 +16,7 @@ public class ObstacleSpawner : MonoBehaviour
             float obstacleY = Random.Range(minY,maxY);
             //choose a postion for the new obstacle
             // Vector3 spawnPosition = new Vector3(transform.position.x + distance,obstacleY,0);
-            Vector3 spawnPosition = new Vector3(col.transform.position.x + distance,obstacleY,0);
+            Vector3 spawnPosition = new Vector3(col.transform.position.x + 19,obstacleY,0);
             //Move Obstacle to SpawnPosition
             col.gameObject.transform.position = spawnPosition;
             obsPosition = spawnPosition;
@@ -27,7 +27,7 @@ public class ObstacleSpawner : MonoBehaviour
             //choose random Y position
             float obstacleY = Random.Range(-1.6318f,1.05f);
             //choose a postion for the new obstacle
-            Vector3 spawnPosition = new Vector3(col.transform.position.x + 17 ,obstacleY,0);
+            Vector3 spawnPosition = new Vector3(col.transform.position.x + 19 ,obstacleY,0);
             float randScaly = Random.Range(0.7129308f,1.05f);
             // col.gameObject.GetComponent<SpriteRenderer>().flipY = (Random.value > 0.5f);
             //Move Obstacle to SpawnPosition

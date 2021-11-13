@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
+using UnityEditor;
 
 
 public class movementBird : MonoBehaviour
@@ -18,13 +20,22 @@ public class movementBird : MonoBehaviour
     bool isDead;
     //Add a public GameObject variable and drag your Button in the Inspector
     public GameObject pnlGameOver;
+    public GameObject pnlPause;
+
 
     //Declare an int variable named score
     int score = 0;
     //Declare a public Text variable
     public Text scoreText;
+    public Text scoreGame;
 
+    public Text bestScore;
     bool freez;
+
+    int gameover;
+    int best;
+
+    bool pause;
     //Add an OncollisionEnter2d function to your BirdScript
     private void OnCollisionEnter2D(Collision2D col) {
         if(col.gameObject.tag != "dontUp")
@@ -37,6 +48,7 @@ public class movementBird : MonoBehaviour
         //change the isDead parameter of the Animator to start the Dead animation
         GetComponent<Animator>().SetBool("isDead",true);
              StartCoroutine(deathCoroutine());
+             Score();
         }
 
     }
@@ -66,12 +78,10 @@ public class movementBird : MonoBehaviour
 
     public void UnFreeze(){
         Time.timeScale = 1;
-        scoreText.text = "0";
 
     }
-        public void Freeze(){
+    public void Freeze(){
         Time.timeScale = 0;
-
     }
 
     public void Replay()
@@ -82,6 +92,11 @@ public class movementBird : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+            string path = "bestScore.txt";
+            StreamReader reader = new StreamReader(path);
+            bestScore.text = reader.ReadToEnd().ToString();
+            reader.Close();
+
         Time.timeScale = 0;
         //Get a reference to the Rigidbody2D of the Bird
         rb2d = GetComponent<Rigidbody2D>();
@@ -89,7 +104,40 @@ public class movementBird : MonoBehaviour
         rb2d.velocity = Vector2.right * speed *Time.deltaTime;
         
     }
+      public void reset()
+    {
+            string path ="bestScore.txt";        
+            string strFile = File.ReadAllText(path);
+            strFile = strFile.Replace(bestScore.text,"0");
+            File.WriteAllText(path, strFile);
+            bestScore.text = "0";
+    }
+        private void Score()
+    {
+        scoreGame.text= scoreText.text;
+        gameover = int.Parse(scoreGame.text);
+        best = int.Parse(bestScore.text);
+        if( gameover > best )
+        {
+            print("ok");
+            string path ="bestScore.txt";        
+            string strFile = File.ReadAllText(path);
+            strFile = strFile.Replace(bestScore.text,scoreGame.text);
+            File.WriteAllText(path, strFile);
+            bestScore.text = scoreGame.text;
+        }
+        else
+        {
+            print("ok2");
+            string path = "bestScore.txt";
+            StreamReader reader = new StreamReader(path);
+            //Print the text from the file
+            bestScore.text = reader.ReadLine().ToString();
+            reader.Close();
+        }
+    }
 
+ 
     // Update is called once per frame
     void Update()
     {
@@ -100,16 +148,29 @@ public class movementBird : MonoBehaviour
             //Add up force to bird
             rb2d.AddForce(Vector2.up * flapforce);        
         }
+        if(Input.GetMouseButtonDown(1) && !isDead)
+        {
+            //Reset Velocity
+            rb2d.velocity = Vector2.right * speed * Time.deltaTime;
+            //Add up force to bird
+            rb2d.AddForce(Vector2.up * flapforce * 2);        
+        }
         if(Input.GetKeyDown(KeyCode.Space) && freez == false)
         {
             freez =true;
+            pnlPause.SetActive(true);
             Freeze();
         }else if(Input.GetKeyDown(KeyCode.Space) && freez == true)
         {
             freez = false;
+            pnlPause.SetActive(false);
             UnFreeze();
         }
            StartCoroutine(SpeedGame());
         
+    }
+    public void ExitGame()
+    {
+        EditorApplication.isPlaying = false;
     }
 }
