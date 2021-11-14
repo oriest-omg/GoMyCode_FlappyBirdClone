@@ -92,7 +92,7 @@ public class movementBird : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-            string path = "bestScore.txt";
+            string path = "Assets/bestScore.txt";
             StreamReader reader = new StreamReader(path);
             bestScore.text = reader.ReadToEnd().ToString();
             reader.Close();
@@ -106,7 +106,7 @@ public class movementBird : MonoBehaviour
     }
       public void reset()
     {
-            string path ="bestScore.txt";        
+            string path ="Assets/bestScore.txt";        
             string strFile = File.ReadAllText(path);
             strFile = strFile.Replace(bestScore.text,"0");
             File.WriteAllText(path, strFile);
@@ -120,7 +120,7 @@ public class movementBird : MonoBehaviour
         if( gameover > best )
         {
             print("ok");
-            string path ="bestScore.txt";        
+            string path ="Assets/bestScore.txt";        
             string strFile = File.ReadAllText(path);
             strFile = strFile.Replace(bestScore.text,scoreGame.text);
             File.WriteAllText(path, strFile);
@@ -129,7 +129,7 @@ public class movementBird : MonoBehaviour
         else
         {
             print("ok2");
-            string path = "bestScore.txt";
+            string path = "Assets/bestScore.txt";
             StreamReader reader = new StreamReader(path);
             //Print the text from the file
             bestScore.text = reader.ReadLine().ToString();
