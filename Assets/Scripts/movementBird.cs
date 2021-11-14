@@ -171,6 +171,8 @@ public class movementBird : MonoBehaviour
     }
     public void ExitGame()
     {
-        EditorApplication.isPlaying = false;
+        // EditorApplication.isPlaying = false;
+       Application.Quit();
+
     }
 }
