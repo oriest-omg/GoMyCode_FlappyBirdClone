@@ -36,6 +36,8 @@ public class movementBird : MonoBehaviour
     int best;
 
     bool pause;
+
+     string m_Path;
     //Add an OncollisionEnter2d function to your BirdScript
     private void OnCollisionEnter2D(Collision2D col) {
         if(col.gameObject.tag != "dontUp")
@@ -92,10 +94,28 @@ public class movementBird : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-            string path = "Assets/bestScore.txt";
-            StreamReader reader = new StreamReader(path);
-            bestScore.text = reader.ReadToEnd().ToString();
-            reader.Close();
+                //Get the path of the Game data folder
+
+        // m_Path = Application.dataPath + "/bestScore.txt";
+
+        //Output the Game data path to the console
+
+        // Debug.Log("dataPath : " + m_Path );
+
+        //     string path = m_Path;
+        //     StreamReader reader = new StreamReader(path);
+        //     bestScore.text = reader.ReadToEnd().ToString();
+        //     reader.Close();
+        if(PlayerPrefs.GetString("best") != null)
+        {
+            Debug.Log(PlayerPrefs.GetString("best",bestScore.text));
+        bestScore.text =  PlayerPrefs.GetString("best",bestScore.text);
+        }
+        else
+        {
+            Debug.Log(PlayerPrefs.GetString("best",bestScore.text));
+        bestScore.text =  PlayerPrefs.GetString("best","0");
+        }
 
         Time.timeScale = 0;
         //Get a reference to the Rigidbody2D of the Bird
@@ -106,11 +126,13 @@ public class movementBird : MonoBehaviour
     }
       public void reset()
     {
-            string path ="Assets/bestScore.txt";        
-            string strFile = File.ReadAllText(path);
-            strFile = strFile.Replace(bestScore.text,"0");
-            File.WriteAllText(path, strFile);
-            bestScore.text = "0";
+            // string path =m_Path;        
+            // string strFile = File.ReadAllText(path);
+            // strFile = strFile.Replace(bestScore.text,"0");
+            // File.WriteAllText(path, strFile);
+            // bestScore.text = "0";
+        PlayerPrefs.SetString("best","0");
+        bestScore.text =  PlayerPrefs.GetString("best","0");
     }
         private void Score()
     {
@@ -119,21 +141,24 @@ public class movementBird : MonoBehaviour
         best = int.Parse(bestScore.text);
         if( gameover > best )
         {
-            print("ok");
-            string path ="Assets/bestScore.txt";        
-            string strFile = File.ReadAllText(path);
-            strFile = strFile.Replace(bestScore.text,scoreGame.text);
-            File.WriteAllText(path, strFile);
-            bestScore.text = scoreGame.text;
+            // print("ok");
+            // string path =m_Path;        
+            // string strFile = File.ReadAllText(path);
+            // strFile = strFile.Replace(bestScore.text,scoreGame.text);
+            // File.WriteAllText(path, strFile);
+            // bestScore.text = scoreGame.text;*
+            PlayerPrefs.SetString("best",scoreGame.text);
+            bestScore.text = PlayerPrefs.GetString("best");
         }
         else
         {
-            print("ok2");
-            string path = "Assets/bestScore.txt";
-            StreamReader reader = new StreamReader(path);
-            //Print the text from the file
-            bestScore.text = reader.ReadLine().ToString();
-            reader.Close();
+            // print("ok2");
+            // string path = m_Path;
+            // StreamReader reader = new StreamReader(path);
+            // //Print the text from the file
+            // bestScore.text = reader.ReadLine().ToString();
+            // reader.Close();
+            bestScore.text = PlayerPrefs.GetString("best");
         }
     }
 
