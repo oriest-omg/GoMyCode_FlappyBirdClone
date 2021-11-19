@@ -191,7 +191,7 @@ public class movementBird : MonoBehaviour
             pnlPause.SetActive(false);
             UnFreeze();
         }
-           StartCoroutine(SpeedGame());
+        //    StartCoroutine(SpeedGame());
         
     }
     public void ExitGame()

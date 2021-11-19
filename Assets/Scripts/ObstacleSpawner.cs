@@ -23,7 +23,7 @@ public class ObstacleSpawner : MonoBehaviour
         } 
         if( col.tag == "Obstacle" && col.name == "flame" )
         {
-            print("flame");
+            // print("flame");
             //choose random Y position
             float obstacleY = Random.Range(-1.6318f,1.05f);
             //choose a postion for the new obstacle
